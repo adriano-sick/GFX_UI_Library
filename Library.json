@@ -1,0 +1,21 @@
+{
+  "name": "GFX UI Library",
+  "version": "0.1.0",
+  "keywords": "tft, ui, graphics, buttons, screens",
+  "description": "A reusable UI library for TFT displays with mcufriend_kbv driver",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adriano-sick/GFX_UI_Library.git"
+  },
+  "authors": [
+    {
+      "name": "Adriano Siqueira",
+      "email": "asdrianoss_rock@yahoo.com.br"
+    }
+  ],
+  "frameworks": "arduino",
+  "platforms": "*",
+  "dependencies": {
+    "mcufriend_kbv": "*"
+  }
+}
