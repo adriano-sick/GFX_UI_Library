@@ -4,6 +4,8 @@
 #include <vector>
 #include "UIElement.h"
 
+class UIElement;
+
 class Screen {
 public:
     Screen(uint8_t id);
