@@ -2,19 +2,20 @@
 #define BUTTON_H
 
 #include "UIElement.h"
+#include <MCUFRIEND_kbv.h>
 
 class Button : public UIElement {
 public:
     Button(int x, int y, int width, int height, const String &label);
     
-    void draw(Mcufriend_kbv &tft) override;
+    void draw(MCUFRIEND_kbv &tft) override;
     void onPress() override;
     void onRelease() override;
     
     void setLabel(const String &label);
     void setColors(uint16_t normal, uint16_t pressed, uint16_t text);
     
-    typedef std::function<void()> Callback;
+    typedef void (*Callback)();
     void setCallback(Callback cb);
     
 private:

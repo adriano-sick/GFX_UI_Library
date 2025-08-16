@@ -1,7 +1,7 @@
 #ifndef GFX_UI_H
 #define GFX_UI_H
 
-#include <mcufriend_kbv.h>
+#include <MCUFRIEND_kbv.h>
 #include "UIElement.h"
 #include "Screen.h"
 #include "Button.h"
@@ -9,7 +9,7 @@
 
 class GFX_UI {
 public:
-    GFX_UI(Mcufriend_kbv &tft);
+    GFX_UI(MCUFRIEND_kbv &tft);
     
     void begin();
     void update();
@@ -29,7 +29,7 @@ public:
     void drawBatteryIcon(int x, int y, float percent, uint16_t color);
     
 private:
-    Mcufriend_kbv &_tft;
+    MCUFRIEND_kbv &_tft;
     Screen* _activeScreen;
     std::vector<Screen*> _screens;
 

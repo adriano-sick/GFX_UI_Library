@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include <vector>
+#include "vector_shim.h" 
 #include "UIElement.h"
 
 class UIElement;
@@ -12,7 +12,7 @@ public:
     
     void addElement(UIElement* element);
     void removeElement(UIElement* element);
-    void draw(Mcufriend_kbv &tft);
+    void draw(MCUFRIEND_kbv &tft);
     void handleTouch(int x, int y);
     
     uint8_t getId() const;

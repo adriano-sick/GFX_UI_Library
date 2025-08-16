@@ -1,14 +1,15 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <vector>
-#include <mcufriend_kbv.h>
+#include "vector_shim.h"
+#include "UIElement.h" 
+#include <MCUFRIEND_kbv.h>
 
 class Graph : public UIElement {
 public:
     Graph(int x, int y, int width, int height);
     
-    void draw(Mcufriend_kbv &tft) override;
+    void draw(MCUFRIEND_kbv &tft) override; 
     void addDataPoint(float value);
     void clearData();
     void setColor(uint16_t color);
