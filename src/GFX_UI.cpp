@@ -1,5 +1,5 @@
-#include "GFX_UI.h"
-#include "Screen.h"
+#include "../include/GFX_UI.h"
+#include "../include/Screen.h"
 
 GFX_UI::GFX_UI(MCUFRIEND_kbv &tft) : _tft(tft), _activeScreen(nullptr) {}
 
