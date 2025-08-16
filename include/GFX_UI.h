@@ -23,11 +23,17 @@ public:
     // Utilitários gráficos
     void drawRoundedRect(int x, int y, int w, int h, int r, uint16_t color);
     void drawGradient(int x, int y, int w, int h, uint16_t color1, uint16_t color2);
+
+    void drawIcon(int x, int y, const String &icon, uint16_t color, uint8_t size = 1);
+    void drawProgressBar(int x, int y, int w, int h, float percent, uint16_t color);
+    void drawBatteryIcon(int x, int y, float percent, uint16_t color);
     
 private:
     Mcufriend_kbv &_tft;
     Screen* _activeScreen;
     std::vector<Screen*> _screens;
+
+    void _initIconFont();
 };
 
 #endif

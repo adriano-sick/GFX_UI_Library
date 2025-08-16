@@ -1,108 +1,159 @@
-# GFX UI Library for Arduino
-
-![Arduino TFT UI](https://img.shields.io/badge/Platform-Arduino-blue)
-![TFT Support](https://img.shields.io/badge/Driver-mcufriend__kbv-green)
-![Version](https://img.shields.io/badge/Version-0.1.0-orange)
+GFX UI Library for Arduino
+https://img.shields.io/badge/Platform-Arduino-blue
+https://img.shields.io/badge/Driver-mcufriend__kbv-green
+https://img.shields.io/badge/Version-0.2.0-orange
 
 A reusable UI library for TFT displays using the mcufriend_kbv driver. This library provides graphical components like buttons, screens with navigation, animations, transitions, and data visualization elements for Arduino projects.
 
-## Features
+Features
+🖥️ Screen management system with transitions
 
-- 🖥️ Screen management system with transitions
-- 🛠️ Reusable UI elements (buttons, sliders, graphs)
-- 🎨 Customizable appearance
-- 🔄 Touch event handling
-- 📊 Data visualization components
-- ✨ Animation support
-- 🧩 Modular architecture for easy extension
+🛠️ Reusable UI elements (buttons, sliders, graphs, gauges)
 
-## Installation
+🎨 Customizable appearance with themes support
 
-### Using PlatformIO
+🔄 Touch event handling
 
-1. Add the library as a dependency in your `platformio.ini` file:
+📊 Data visualization components
 
-```ini
+✨ Animation support
+
+🧩 Modular architecture for easy extension
+
+🆕 New in v0.2.0: Specialized components for marine applications
+
+Installation
+Using PlatformIO
+ini
 lib_deps =
     https://github.com/yourusername/GFX_UI_Library.git
     mcufriend_kbv
-```
+Manual Installation
+(Instructions remain the same)
 
-2. Run `pio lib install` to download the dependencies
+Dependencies
+(Remains the same)
 
-### Manual Installation
+Quick Start
+(Remains the same)
 
-1. Clone this repository into your Arduino libraries folder
-2. Install the required [mcufriend_kbv](https://github.com/prenticedavid/MCUFRIEND_kbv) library
-3. Restart your Arduino IDE
+Documentation
+Core Components
+GFX_UI: Main library controller
 
-## Dependencies
+Screen: Container for UI elements
 
-This library **requires** the following dependency to work:
+UIElement: Base class for all UI components
 
-- [mcufriend_kbv](https://github.com/prenticedavid/MCUFRIEND_kbv) - Driver for TFT displays
+Button: Interactive button element
 
-Make sure to install it before using this library.
+Graph: Data visualization component
 
-## Quick Start
+Transition: Screen transition effects
 
-```cpp
+New Specialized Components (v0.2.0)
+InfoPanel
+Display multiple information items with labels and values in a structured layout. Perfect for weather, navigation data, and system status.
+
+cpp
+InfoPanel* panel = new InfoPanel(10, 10, 300, 180, 0x001F);
+panel->setTitle("Weather Info");
+panel->addInfoItem("Temperature", "26°C");
+panel->addInfoItem("Wind Speed", "12 knots");
+CircularGauge
+Circular progress indicator with customizable colors and labels. Ideal for tank levels and battery status.
+
+cpp
+CircularGauge* gauge = new CircularGauge(100, 40, 120, 0x0010, 0x07E0);
+gauge->setLabel("Water Tank");
+gauge->setValue(75); // 75%
+IconButton
+Button with icon and text support. Includes pre-defined marine-themed icons.
+
+cpp
+IconButton* btn = new IconButton(50, 50, 120, 40, "⛵", "Anchor");
+btn->setColors(0x001F, 0x07FF, 0xFFFF);
+ToggleButton
+Maintains on/off state with visual feedback. Perfect for system controls.
+
+cpp
+ToggleButton* toggle = new ToggleButton(50, 100, 120, 40, "Lights");
+toggle->setActiveColors(0x07E0, 0x0000); // Green when active
+Carousel
+Horizontal selector for multiple items. Great for switching between different status views.
+
+cpp
+Carousel* carousel = new Carousel(20, 180, 280, 30);
+carousel->addItem("Water", "🚿");
+carousel->addItem("Fuel", "⛽");
+NavigationArrows
+Simple left/right navigation controls with callbacks.
+
+cpp
+NavigationArrows* arrows = new NavigationArrows(10, 80, 30);
+arrows->setLeftCallback(prevItem);
+arrows->setRightCallback(nextItem);
+Utility Methods
+drawIcon() - Draws predefined icons (supports marine-themed symbols)
+
+drawProgressBar() - Horizontal/vertical progress bars
+
+drawBatteryIcon() - Battery level indicator
+
+drawMarineSymbol() - Specialized nautical symbols
+
+Example Applications
+Check the examples folder for:
+
+MarineDashboard: Complete boat control panel
+
+SystemMonitor: Tank levels and battery status
+
+NavigationDisplay: GPS and compass information
+
+LightingControl: Toggle switches for marine lighting
+
+Creating a Marine Dashboard
+cpp
 #include <GFX_UI.h>
 #include <mcufriend_kbv.h>
 
 Mcufriend_kbv tft;
 GFX_UI ui(tft);
 
+´´´cpp
 void setup() {
     tft.begin();
     ui.begin();
     
-    // Create a screen
+    // Main Screen
     Screen* mainScreen = new Screen(1);
-    mainScreen->setBackground(0x0000); // Black background
+    mainScreen->setBackground(0x001F); // Navy blue
     
-    // Create a button
-    Button* btn = new Button(50, 50, 100, 40, "Click Me");
-    btn->setColors(0x07FF, 0x001F, 0x0000); // Blue, dark blue, black text
-    btn->setCallback([]() {
-        Serial.println("Button pressed!");
-    });
+    // Info Panel
+    InfoPanel* weather = new InfoPanel(10, 10, 140, 100, 0x0000);
+    weather->addInfoItem("Temp", "26°C");
+    weather->addInfoItem("Wind", "12kt");
+    mainScreen->addElement(weather);
     
-    mainScreen->addElement(btn);
+    // Circular Gauge
+    CircularGauge* tank = new CircularGauge(180, 20, 100, 0x0000, 0x07E0);
+    tank->setLabel("Water");
+    tank->setValue(80);
+    mainScreen->addElement(tank);
+    
+    // Navigation Buttons
+    IconButton* navBtn = new IconButton(20, 150, 80, 40, "🧭", "Nav");
+    mainScreen->addElement(navBtn);
+    
     ui.addScreen(mainScreen);
     ui.setActiveScreen(1);
 }
 
 void loop() {
-    // Handle touch input and redraw
     ui.update();
 }
-```
-
-## Documentation
-
-### Core Components
-
-- **GFX_UI**: Main library controller
-- **Screen**: Container for UI elements
-- **UIElement**: Base class for all UI components
-- **Button**: Interactive button element
-- **Graph**: Data visualization component
-- **Transition**: Screen transition effects
-
-### Available Transitions
-
-- Slide (left, right, top, bottom)
-- Fade
-- None (instant switch)
-
-## Examples
-
-Check the [examples](examples/) folder for complete usage examples:
-
-1. **BasicExample**: Simple screen with buttons
-2. **AdvancedExample**: Multiple screens with transitions
-3. **GraphExample**: Data visualization demo
+´´´
 
 ## Contributing
 
